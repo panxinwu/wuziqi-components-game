@@ -1,5 +1,6 @@
 import React from 'react'
 import Board from 'wuziqi-components-board'
+import { checkWinnerOneDirection } from 'wuziqi-utils'
 
 const DIM = 10
 
@@ -28,22 +29,6 @@ class Game extends React.Component {
     })
   }
 
-  checkWinnerOneDirection = (squares, startX, startY, deltaX, deltaY) => {
-    let player = squares[startX][startY]
-    let xPos = startX
-    let Ypos = startY
-    let counter = 1
-    while (xPos >= 0 && xPos < DIM && Ypos >= 0 && Ypos < DIM) {
-      xPos += deltaX
-      Ypos += deltaY
-      if (squares[xPos][Ypos] !== player || counter === 5) {
-        break
-      }
-      counter += 1
-    }
-    return counter === 5
-  }
-
   calculateWinner() {
     const history = this.state.history
     const current = history[this.state.stepNumber]
@@ -55,7 +40,7 @@ class Game extends React.Component {
     for (let i = 0; i < 8; i++) {
       let deltaX = directions[i][0]
       let deltaY = directions[i][1]
-      if (this.checkWinnerOneDirection(s, h, v, deltaX, deltaY)) {
+      if (checkWinnerOneDirection(s, h, v, deltaX, deltaY)) {
         return s[h][v]
       }
     }
@@ -111,14 +96,14 @@ class Game extends React.Component {
     }
 
     return (
-      <div className='game'>
-        <div className='game-board'>
+      <div className='wuziqi-game'>
+        <div className='wuziqi-game-board'>
           <Board
             squares={current.squares}
             onClick={(i, j) => this.handleClick(i, j)}
           />
         </div>
-        <div className='game-info'>
+        <div className='wuziqi-game-info'>
           <div>{status}</div>
           <ol>{moves}</ol>
         </div>
