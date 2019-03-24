@@ -1,0 +1,8 @@
+{
+  "short_name": "wuziqi-components-game",
+  "name": "wuziqi-components-game",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
